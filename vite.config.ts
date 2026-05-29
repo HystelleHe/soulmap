@@ -3,10 +3,14 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { VitePWA } from 'vite-plugin-pwa'
 
+// base 按部署目标切换：
+//   - 默认 '/'         —— 用于 EdgeOne Pages / 任意根域名（国内主用）
+//   - DEPLOY_BASE=/soulmap/ —— 用于 GitHub Pages 子路径（海外备份，由 deploy.sh 注入）
+// PWA manifest 图标用相对路径、start_url/scope 用 '.'，两种 base 都不会 404。
+const base = process.env.DEPLOY_BASE || '/'
+
 export default defineConfig({
-  // GitHub Pages 项目站点部署在 https://hystellehe.github.io/soulmap/ 子路径下，
-  // 所有资源需带 /soulmap/ 前缀，否则 404。本地 dev/preview 也会自动用此 base。
-  base: '/soulmap/',
+  base,
   plugins: [
     react(),
     tailwindcss(),

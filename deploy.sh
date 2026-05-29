@@ -9,9 +9,9 @@ set -e
 REPO_URL="https://github.com/HystelleHe/soulmap.git"
 ROOT="$(cd "$(dirname "$0")" && pwd)"
 
-echo "==> 1/3 构建生产产物"
+echo "==> 1/3 构建生产产物（GitHub Pages 子路径 base=/soulmap/）"
 cd "$ROOT"
-npm run build
+DEPLOY_BASE=/soulmap/ npm run build
 
 echo "==> 2/3 打包 dist 到临时目录并初始化 gh-pages 分支"
 TMP="$(mktemp -d)"
