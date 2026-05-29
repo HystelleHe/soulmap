@@ -6,14 +6,30 @@
 
 纯前端、纯本地存储（localStorage），无需后端、无需账号，隐私优先。
 
+**🌐 线上地址（GitHub Pages）：https://hystellehe.github.io/soulmap/**
+手机浏览器打开后可"添加到主屏幕"，按 PWA 独立 App 运行。
+
 ## 启动命令
 
 ```bash
 npm install     # 安装依赖（首次）
-npm run dev      # 本地开发，默认 http://localhost:5173
+npm run dev      # 本地开发，默认 http://localhost:5173/soulmap/
 npm run build    # 生产构建，产物在 dist/
-npm run preview  # 本地预览生产构建
+npm run preview  # 本地预览生产构建（http://localhost:4173/soulmap/）
 ```
+
+> 注意：因部署在 `hystellehe.github.io/soulmap/` 子路径下，`vite.config.ts` 里设了
+> `base: '/soulmap/'`，所以本地地址也带 `/soulmap/` 后缀。
+
+## 重新部署（改完代码后更新线上）
+
+```bash
+./deploy.sh      # 一键：构建 → 推送 gh-pages 分支 → 约 1 分钟后线上生效
+```
+
+`deploy.sh` 做的事：本地 `npm run build` 出 `dist/`，把它作为 `gh-pages` 分支根目录
+强制推到 GitHub；仓库的 Pages 已设为"从 `gh-pages` 分支根目录发布"。`main` 分支放源码、
+`gh-pages` 分支放构建产物，两者互不干扰。
 
 ## 技术栈
 
