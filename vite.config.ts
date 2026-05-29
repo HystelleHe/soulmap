@@ -4,6 +4,9 @@ import tailwindcss from '@tailwindcss/vite'
 import { VitePWA } from 'vite-plugin-pwa'
 
 export default defineConfig({
+  // GitHub Pages 项目站点部署在 https://hystellehe.github.io/soulmap/ 子路径下，
+  // 所有资源需带 /soulmap/ 前缀，否则 404。本地 dev/preview 也会自动用此 base。
+  base: '/soulmap/',
   plugins: [
     react(),
     tailwindcss(),
@@ -19,12 +22,14 @@ export default defineConfig({
         background_color: '#04060c',
         display: 'standalone',
         orientation: 'portrait',
-        start_url: '/',
+        // 相对路径：随 manifest 所在的 /soulmap/ 目录解析，子路径部署不会 404
+        start_url: '.',
+        scope: '.',
         icons: [
-          { src: '/pwa-192x192.png', sizes: '192x192', type: 'image/png' },
-          { src: '/pwa-512x512.png', sizes: '512x512', type: 'image/png' },
+          { src: 'pwa-192x192.png', sizes: '192x192', type: 'image/png' },
+          { src: 'pwa-512x512.png', sizes: '512x512', type: 'image/png' },
           {
-            src: '/maskable-512x512.png',
+            src: 'maskable-512x512.png',
             sizes: '512x512',
             type: 'image/png',
             purpose: 'maskable',
