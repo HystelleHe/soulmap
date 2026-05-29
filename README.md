@@ -6,8 +6,19 @@
 
 纯前端、纯本地存储（localStorage），无需后端、无需账号，隐私优先。
 
-**🌐 线上地址（GitHub Pages）：https://hystellehe.github.io/soulmap/**
+**🌐 线上地址（海外备份，GitHub Pages）：https://hystellehe.github.io/soulmap/**
 手机浏览器打开后可"添加到主屏幕"，按 PWA 独立 App 运行。
+⚠️ 该地址在中国大陆访问不稳定（github.io 常被墙）。大陆访问请用下方 EdgeOne 方案。
+
+### 大陆访问（腾讯云 EdgeOne Pages，免备案默认域名）
+EdgeOne Pages 连接本仓库自动构建，给一个 `*.edgeone.app` 域名，国内不被墙。
+连接时构建参数：
+- 构建命令：`npm run build`（默认 base=`/`，根路径，正好匹配 EdgeOne 根域名）
+- 输出目录：`dist`
+- 框架预设：Vite
+
+> 部署目标决定 base：EdgeOne/根域名用默认 `/`；GitHub Pages 子路径由 `deploy.sh`
+> 注入 `DEPLOY_BASE=/soulmap/`。两平台并存、互不影响。
 
 ## 启动命令
 
