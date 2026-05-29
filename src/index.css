@@ -1,0 +1,148 @@
+@import 'tailwindcss';
+
+/* ============ 设计令牌（心屿 · 深空与深海交界的星图美学） ============ */
+@theme {
+  /* 字体：Cormorant=空灵衬线(西文/数字)，思源宋=中文沉思感 */
+  --font-display: 'Cormorant Garamond', 'Noto Serif SC', serif;
+  --font-serif: 'Noto Serif SC', 'Cormorant Garamond', serif;
+
+  /* 深空底色：极深的靛蓝/墨色，非纯黑 */
+  --color-void-900: #04060c;
+  --color-void-800: #070a14;
+  --color-void-700: #0b1020;
+  --color-void-600: #121a30;
+
+  /* 暖金/琥珀 = 预设道理（已点亮的星辰） */
+  --color-amber-glow: #ffce8a;
+  --color-amber-core: #ffb454;
+
+  /* 青/紫 = 自定义道理（极光/星云） */
+  --color-aurora: #7fe0ff;
+  --color-nebula: #b58bff;
+
+  /* 未点亮的迷雾节点 */
+  --color-mist: #5a6b86;
+}
+
+:root {
+  color-scheme: dark;
+  /* 文本色 */
+  --ink: #e7ecf6;
+  --ink-soft: #9fb0cb;
+  --ink-faint: #6a7b97;
+  --line: rgba(150, 180, 230, 0.14);
+  --glass: rgba(12, 18, 33, 0.62);
+  --glass-strong: rgba(10, 15, 28, 0.86);
+
+  font-family: var(--font-serif);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-synthesis: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+body {
+  color: var(--ink);
+  /* 深空星云底：多层径向渐变叠出"宇宙/深海"氛围，Pixi 画布透明叠在其上 */
+  background-color: var(--color-void-900);
+  background-image:
+    radial-gradient(120% 90% at 18% 8%, rgba(60, 96, 170, 0.22), transparent 55%),
+    radial-gradient(100% 80% at 88% 22%, rgba(140, 86, 200, 0.16), transparent 50%),
+    radial-gradient(120% 120% at 70% 100%, rgba(20, 110, 130, 0.18), transparent 55%),
+    radial-gradient(140% 140% at 50% 50%, #070b16 0%, #04060c 70%);
+  background-attachment: fixed;
+  /* 安全区内边距，配合 iOS 全屏 */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+    env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+/* 细颗粒噪点，去掉"塑料感"，增加氛围质地 */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ============ 通用玻璃面板 ============ */
+.glass {
+  background: var(--glass);
+  backdrop-filter: blur(18px) saturate(125%);
+  -webkit-backdrop-filter: blur(18px) saturate(125%);
+  border: 1px solid var(--line);
+  box-shadow:
+    0 24px 60px -28px rgba(0, 0, 0, 0.85),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* 滚动条：低调融入深空 */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: rgba(150, 180, 230, 0.18);
+  border-radius: 99px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* 文本选区染成星光色 */
+::selection {
+  background: rgba(255, 206, 138, 0.28);
+  color: #fff;
+}
+
+/* ============ 关键帧 ============ */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes breathe {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.anim-rise {
+  animation: rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.anim-fade {
+  animation: fade-in 0.5s ease both;
+}
